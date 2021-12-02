@@ -8,6 +8,7 @@ client = boto3.client('dynamodb',
 
 dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table('Users')
+print(table.item_count)
 
 # GetItem
 response = table.get_item(
@@ -26,4 +27,18 @@ table.put_item(
         'firstname': 'Paul',
         'lastname': 'Kerry'
     }
+)
+
+# UpdateItem
+table.update_item(
+    Key={'id': '3'},
+    UpdateExpression='SET firstname = :newfn',
+    ExpressionAttributeValues={
+        ':newfn': 'Alex'
+    }
+)
+
+# DeleteItem
+table.delete_item(
+    Key={'id': '3'}
 )
